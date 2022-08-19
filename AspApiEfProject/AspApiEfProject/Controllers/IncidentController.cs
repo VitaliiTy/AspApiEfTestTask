@@ -18,6 +18,11 @@ namespace AspApiEfProject.Controllers
         [HttpPost("/Incident")]
         public async Task<IActionResult> IncidentCreation(string accountName, string firstname, string lastname, string email, string description)
         {
+            if (string.IsNullOrEmpty(accountName) && string.IsNullOrEmpty(firstname) && string.IsNullOrEmpty(lastname) && string.IsNullOrEmpty(email) && string.IsNullOrEmpty(description))
+            {
+                return BadRequest();
+            }
+
             Random random = new();
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var ramdomString = new string(Enumerable.Repeat(chars, 10).Select(s => s[random.Next(s.Length)]).ToArray());
