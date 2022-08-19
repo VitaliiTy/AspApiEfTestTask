@@ -1,19 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AspApiEfProject.Models
 {
-    public class Incident
+    public partial class Incident
     {
+        public Incident()
+        {
+            Accounts = new HashSet<Account>();
+        }
+
         public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public string Description { get; set; } = null!;
 
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Name { get; set; }
-        
-        [Required]
-        public string Description { get; set; }
-
-        public List<Account> Accounts { get; set; } = new List<Account>();
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

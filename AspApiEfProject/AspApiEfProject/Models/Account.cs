@@ -1,17 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.Net.Mail;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AspApiEfProject.Models
 {
-    [Index(nameof(Name), IsUnique = true)]
-    public class Account
+    public partial class Account
     {
+        public Account()
+        {
+            Contacts = new HashSet<Contact>();
+        }
+
         public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public int? IncidentId { get; set; }
 
-        [Required]
-        public string Name { get; set; }
-
-        public List<Contact> Contacts { get; set; } = new List<Contact>();
+        public virtual Incident? Incident { get; set; }
+        public virtual ICollection<Contact> Contacts { get; set; }
     }
 }
